@@ -1,5 +1,9 @@
 import ListenMusic.Mp3Music;
 import ListenMusic.Music;
+import Plants.FoodPlant;
+import Plants.FruitPlant;
+import Plants.OrnamentalPlant;
+import Plants.PlantCare;
 import Sports.Basketball;
 import Sports.Soccer;
 import Sports.Tennis;
@@ -14,10 +18,12 @@ public class Hobbie {
     private Mp3Music wallkman ;
     private Travel travel;
     private int selectedHotel;
+    private PlantCare plantCare;
 
     public Hobbie() {
         sc = new Scanner(System.in);
         wallkman = new Mp3Music();
+        plantCare = new PlantCare();
         travel = new Travel();
         selectedHotel = -1;
         viewMenu();
@@ -26,7 +32,9 @@ public class Hobbie {
 
     private void viewMenu(){
         System.out.println("---------------------------------------------");
+        System.out.println("Wellcome to the hobbies");
         System.out.println("What do you want to do?");
+        System.out.println("---------------------------------------------");
         System.out.println("1: Listen to music");
         System.out.println("2: Sport");
         System.out.println("3: Travel");
@@ -42,13 +50,206 @@ public class Hobbie {
                 break;
             case 2 :
                 sports();
+                break;
             case 3 :
                 travels();
+                break;
             case 4 :
-                System.out.println("hi");
+                plantCare();
+                break;
             case 5 :
                 System.exit(0);
         }
+    }
+
+    //Care Plant
+
+    private void plantCare(){
+        System.out.println("---------------------------------------------");
+        System.out.println("Wellcome to the plant care section!!");
+        System.out.println("---------------------------------------------");
+        System.out.println("1: View plants");
+        System.out.println("2: Sow a plant");
+        System.out.println("3: Water plants");
+        System.out.println("4: Pruning and harvest plant");
+        System.out.println("5: back");
+        evaluationPlantCare(sc.nextInt());
+    }
+
+    public void evaluationPlantCare(int index){
+        switch (index){
+            case 1:
+                viewPlants();
+                break;
+            case 2:
+                viewSowPlant();
+                break;
+            case 3:
+                waterPlant();
+                break;
+            case 4:
+                pruningAndHarvest();
+                break;
+            case 5:
+                viewMenu();
+        }
+    }
+
+    private void pruningAndHarvest(){
+        switch (plantCare.getSeason()){
+            case "spring" :
+                System.out.println("---------------------------------------------");
+                System.out.println("SPRINT");
+                System.out.println("---------------------------------------------");
+                plantCare();
+                break;
+
+            case "summer":
+                System.out.println("---------------------------------------------");
+                System.out.println("SUMMER");
+                System.out.println("---------------------------------------------");
+                for(int i =0 ; i<plantCare.getFruitPlants().size(); i++){
+                    FruitPlant fruits = (FruitPlant)plantCare.getFruitPlants().get(i);
+                    fruits.canBeHarvested(plantCare.getSeason());
+                    System.out.println(fruits.getName()+" :"+fruits.getHarvested());
+                }
+                for(int i =0 ; i<plantCare.getFoodPlants().size(); i++){
+                    FoodPlant foods = (FoodPlant) plantCare.getFoodPlants().get(i);
+                    foods.canBeHarvested(plantCare.getSeason());
+                    System.out.println(foods.getName()+" :"+foods.getHarvested());
+                }
+                plantCare();
+                break;
+
+            case "autumn" :
+                System.out.println("---------------------------------------------");
+                System.out.println("AUTUMN");
+                System.out.println("---------------------------------------------");
+                for(int i =0 ; i<plantCare.getFruitPlants().size(); i++){
+                    FruitPlant fruits = (FruitPlant)plantCare.getFruitPlants().get(i);
+                    System.out.println(fruits.getName()+": "+fruits.canPrune(plantCare.getSeason()));
+                }
+                plantCare();
+                break;
+
+            case "winter":
+                System.out.println("---------------------------------------------");
+                System.out.println("WINTER");
+                System.out.println("---------------------------------------------");
+                plantCare();
+                break;
+        }
+    }
+
+    private void waterPlant(){
+        System.out.println("---------------------------------------------");
+        System.out.println("Plants that need water");
+        System.out.println("---------------------------------------------");
+        for(int i =0 ; i<plantCare.getFruitPlants().size(); i++){
+            if(plantCare.getFruitPlants().get(i).isWater()== true){
+                System.out.println(plantCare.getFruitPlants().get(i).getName()+" -> I need water");
+            }else{
+                System.out.println(plantCare.getFruitPlants().get(i).getName()+" -> I don't need water");
+            }
+        }
+        for(int i =0 ; i<plantCare.getFoodPlants().size(); i++){
+            if(plantCare.getFoodPlants().get(i).isWater()== true){
+                System.out.println(plantCare.getFoodPlants().get(i).getName()+" -> I need water");
+            }else{
+                System.out.println(plantCare.getFoodPlants().get(i).getName()+" -> I don't need water");
+            }
+
+        }
+        for(int i =0 ; i<plantCare.getOrnamentalPlants().size(); i++){
+            if(plantCare.getOrnamentalPlants().get(i).isWater()== true){
+                System.out.println(plantCare.getOrnamentalPlants().get(i).getName()+" -> I need water");
+            }else{
+                System.out.println(plantCare.getOrnamentalPlants().get(i).getName()+" -> I don't need water");
+            }
+
+        }
+        System.out.println("---------------------------------------------");
+        System.out.println("1: Water plants");
+        System.out.println("2: Back" );
+        switch (sc.nextInt()){
+            case 1: waterPlantTheyNeed(); break;
+            case 2: plantCare();
+        }
+
+    }
+
+    private void waterPlantTheyNeed(){
+
+        for(int i =0 ; i<plantCare.getFruitPlants().size(); i++){
+            if(plantCare.getFruitPlants().get(i).isWater()== true){
+                plantCare.getFruitPlants().get(i).setWater(false);
+            }
+        }
+        for(int i =0 ; i<plantCare.getFoodPlants().size(); i++){
+            if(plantCare.getFoodPlants().get(i).isWater()== true){
+                plantCare.getFoodPlants().get(i).setWater(false);
+            }
+        }
+        for(int i =0 ; i<plantCare.getOrnamentalPlants().size(); i++){
+            if(plantCare.getOrnamentalPlants().get(i).isWater()== true){
+                plantCare.getOrnamentalPlants().get(i).setWater(false);
+            }
+        }
+        waterPlant();
+    }
+
+    private void viewSowPlant(){
+        System.out.println("What type of plant will sow");
+        System.out.println("1: Fruit plant");
+        System.out.println("2: Food plant");
+        System.out.println("3: Ornamental plant");
+        sowPlant(sc.nextInt());
+    }
+
+    private void sowPlant(int index){
+        switch (index){
+            case 1:
+                sc.nextLine();
+                System.out.println("Enter plant's name");
+                plantCare.sownFruitPlant(new FruitPlant(sc.nextLine()));
+                plantCare();
+                break;
+            case 2:
+                sc.nextLine();
+                System.out.println("Enter plant's name");
+                plantCare.sownFoodPlant(new FoodPlant(sc.nextLine()));
+                plantCare();
+                break;
+            case 3: viewMenu();
+                sc.nextLine();
+                System.out.println("Enter plant's name");
+                plantCare.sownOrnamentalPlant(new OrnamentalPlant(sc.nextLine()));
+                plantCare();
+        }
+    }
+
+
+
+    private void viewPlants(){
+        System.out.println("---------------------------------------------");
+        System.out.println("FRUIT PLANTS");
+        System.out.println("---------------------------------------------");
+        for(int i =0 ; i<plantCare.getFruitPlants().size(); i++){
+            System.out.println(plantCare.getFruitPlants().get(i).getName());
+        }
+        System.out.println("---------------------------------------------");
+        System.out.println("FOOD PLANTS");
+        System.out.println("---------------------------------------------");
+        for(int i =0 ; i<plantCare.getFoodPlants().size(); i++){
+            System.out.println(plantCare.getFoodPlants().get(i).getName());
+        }
+        System.out.println("---------------------------------------------");
+        System.out.println("ORNAMENTAL PLANTS");
+        System.out.println("---------------------------------------------");
+        for(int i =0 ; i<plantCare.getOrnamentalPlants().size(); i++){
+            System.out.println(plantCare.getOrnamentalPlants().get(i).getName());
+        }
+        plantCare();
     }
 
     //TRAVEL
@@ -56,6 +257,7 @@ public class Hobbie {
     private void travels(){
         System.out.println("---------------------------------------------");
         System.out.println("Wellcome to rthe travel section!!");
+        System.out.println("---------------------------------------------");
         System.out.println("1: Plan trip");
         System.out.println("2: Travel details ");
         System.out.println("3: back");
@@ -156,7 +358,9 @@ public class Hobbie {
 
     private void sports(){
         System.out.println("---------------------------------------------");
+        System.out.println("Wellcome to the sports section!!");
         System.out.println("What sport do you want to do?");
+        System.out.println("---------------------------------------------");
         System.out.println("1: Football");
         System.out.println("2: Tennis");
         System.out.println("3: Basketball");
@@ -249,7 +453,9 @@ public class Hobbie {
 
     private void listenMusic(){
         System.out.println("---------------------------------------------");
+        System.out.println("Wellcome to the music section");
         System.out.println("What do you want to do?");
+        System.out.println("---------------------------------------------");
         System.out.println("1: Add music to favorites");
         System.out.println("2: View favorites list");
         System.out.println("3: Listen and sing music");
@@ -286,6 +492,7 @@ public class Hobbie {
     }
 
     private void viewFavorites(){
+        System.out.println("---------------------------------------------");
         System.out.println("MY FAVORITE MUSIC IS:");
         for(int i = 0; i < wallkman.getListMusic().getFavorites().getArrayList().size(); ++i) {
             System.out.println("---------------------------------------------");
@@ -321,6 +528,7 @@ public class Hobbie {
     }
 
     private void singSong(int listeningSong){
+        System.out.println("---------------------------------------------");
         System.out.println("I am singing and lintening the next song: "+ wallkman.getListMusic().ListenNusic(listeningSong).getNameMusic());
         int minute= 5;
         while (minute != 0){
