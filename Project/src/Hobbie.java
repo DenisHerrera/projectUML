@@ -32,7 +32,7 @@ public class Hobbie {
 
     private void viewMenu(){
         System.out.println("---------------------------------------------");
-        System.out.println("Wellcome to the hobbies");
+        System.out.println("Welcome to the hobbies");
         System.out.println("What do you want to do?");
         System.out.println("---------------------------------------------");
         System.out.println("1: Listen to music");
@@ -66,10 +66,10 @@ public class Hobbie {
 
     private void plantCare(){
         System.out.println("---------------------------------------------");
-        System.out.println("Wellcome to the plant care section!!");
+        System.out.println("Welcome to the plant care section!!");
         System.out.println("---------------------------------------------");
         System.out.println("1: View plants");
-        System.out.println("2: Sow a plant");
+        System.out.println("2: Sown a plant");
         System.out.println("3: Water plants");
         System.out.println("4: Pruning and harvest plant");
         System.out.println("5: back");
@@ -82,7 +82,7 @@ public class Hobbie {
                 viewPlants();
                 break;
             case 2:
-                viewSowPlant();
+                viewSownPlant();
                 break;
             case 3:
                 waterPlant();
@@ -198,15 +198,15 @@ public class Hobbie {
         waterPlant();
     }
 
-    private void viewSowPlant(){
-        System.out.println("What type of plant will sow");
+    private void viewSownPlant(){
+        System.out.println("What type of plant will sown");
         System.out.println("1: Fruit plant");
         System.out.println("2: Food plant");
         System.out.println("3: Ornamental plant");
-        sowPlant(sc.nextInt());
+        sownPlant(sc.nextInt());
     }
 
-    private void sowPlant(int index){
+    private void sownPlant(int index){
         switch (index){
             case 1:
                 sc.nextLine();
@@ -220,15 +220,13 @@ public class Hobbie {
                 plantCare.sownFoodPlant(new FoodPlant(sc.nextLine()));
                 plantCare();
                 break;
-            case 3: viewMenu();
+            case 3:
                 sc.nextLine();
                 System.out.println("Enter plant's name");
                 plantCare.sownOrnamentalPlant(new OrnamentalPlant(sc.nextLine()));
                 plantCare();
         }
     }
-
-
 
     private void viewPlants(){
         System.out.println("---------------------------------------------");
@@ -256,7 +254,7 @@ public class Hobbie {
 
     private void travels(){
         System.out.println("---------------------------------------------");
-        System.out.println("Wellcome to rthe travel section!!");
+        System.out.println("Welcome to the travel section!!");
         System.out.println("---------------------------------------------");
         System.out.println("1: Plan trip");
         System.out.println("2: Travel details ");
@@ -268,7 +266,7 @@ public class Hobbie {
     private void evaluationTravel(int index){
         switch (index){
             case 1: viewHotel();
-                selectHOtel();
+                selectHotel();
                 viewActivity();
                 selectActivity();
                 viewTotalPrice();
@@ -287,7 +285,7 @@ public class Hobbie {
             System.out.println("The selected hotel is: "+hotelSelected.getHotelName() + ", Price: " + hotelSelected.getRoomPrice());
             System.out.println("Stay days: "+travel.getStayDays());
             System.out.println("The selected activities are: ");
-            viewSlectedActivities();
+            viewSelectedActivities();
             viewTotalPrice();
             travels();
         }else{
@@ -297,7 +295,7 @@ public class Hobbie {
 
     }
 
-    private void viewSlectedActivities(){
+    private void viewSelectedActivities(){
 
         for(int i = 0; i < travel.getSelectedActivities().size(); i++){
             Activity var = (Activity)travel.getSelectedActivities().get(i);
@@ -329,21 +327,21 @@ public class Hobbie {
 
     private void viewHotel(){
         System.out.println("---------------------------------------------");
-        System.out.println("List of Hotels in the Destiny: ");
+        System.out.println("List of hotels in the destiny: ");
         for( int i = 0; i < travel.getHotel().length; i++){
             Hotel var = (Hotel)travel.getHotel()[i];
             System.out.println(i+1 + ": " +var.getHotelName() + " , Price: "+ var.getRoomPrice());
         }
     }
 
-    private void selectHOtel(){
+    private void selectHotel(){
         System.out.println("---------------------------------------------");
         System.out.println("Select the Hotel to stay: ");
         selectedHotel = sc.nextInt()-1;
         Hotel var = (Hotel)travel.getHotel()[selectedHotel];
         System.out.println(var.getHotelName() +", Price: "+ var.getRoomPrice());
         System.out.println("---------------------------------------------");
-        System.out.println("Enter the number of stay days at the Hotel");
+        System.out.println("Enter the number of stay days at the hotel");
         travel.setStayDays(sc.nextInt());
     }
 
@@ -358,7 +356,7 @@ public class Hobbie {
 
     private void sports(){
         System.out.println("---------------------------------------------");
-        System.out.println("Wellcome to the sports section!!");
+        System.out.println("Welcome to the sports section!!");
         System.out.println("What sport do you want to do?");
         System.out.println("---------------------------------------------");
         System.out.println("1: Football");
@@ -453,7 +451,7 @@ public class Hobbie {
 
     private void listenMusic(){
         System.out.println("---------------------------------------------");
-        System.out.println("Wellcome to the music section");
+        System.out.println("Welcome to the music section");
         System.out.println("What do you want to do?");
         System.out.println("---------------------------------------------");
         System.out.println("1: Add music to favorites");
